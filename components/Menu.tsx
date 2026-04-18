@@ -81,7 +81,7 @@ export function Menu() {
                       key={item.name}
                       initial={{ opacity: 0, x: -16 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.08, duration: 0.6 }}
+                      transition={{ delay: i * 0.04, duration: 0.45 }}
                       className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-5 py-6 border-b border-line hover:bg-cream/40 transition-colors px-2 -mx-2 rounded"
                     >
                       <span className="font-display italic text-gold text-xl tabular-nums">

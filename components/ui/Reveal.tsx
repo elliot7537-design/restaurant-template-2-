@@ -3,6 +3,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
+const INVIEW = { once: true, amount: 0.1 } as const;
+
 type Props = {
   children: ReactNode;
   delay?: number;
@@ -11,7 +13,7 @@ type Props = {
   as?: "div" | "section" | "article" | "header" | "footer";
 };
 
-export function Reveal({ children, delay = 0, y = 30, className, as = "div" }: Props) {
+export function Reveal({ children, delay = 0, y = 20, className, as = "div" }: Props) {
   const reduce = useReducedMotion();
   const MotionTag = motion[as];
 
@@ -24,19 +26,18 @@ export function Reveal({ children, delay = 0, y = 30, className, as = "div" }: P
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
+      viewport={INVIEW}
+      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </MotionTag>
   );
 }
 
-/* Stagger container — children reveal sequentially */
 export function Stagger({
   children,
   className,
-  stagger = 0.08,
+  stagger = 0.05,
   delay = 0,
 }: {
   children: ReactNode;
@@ -51,7 +52,7 @@ export function Stagger({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={INVIEW}
       variants={{
         hidden: {},
         visible: { transition: { staggerChildren: stagger, delayChildren: delay } },
@@ -64,7 +65,7 @@ export function Stagger({
 
 export function StaggerChild({
   children,
-  y = 24,
+  y = 18,
   className,
 }: {
   children: ReactNode;
@@ -76,7 +77,7 @@ export function StaggerChild({
       className={className}
       variants={{
         hidden: { opacity: 0, y },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
       }}
     >
       {children}
@@ -84,7 +85,6 @@ export function StaggerChild({
   );
 }
 
-/* Word-by-word reveal for big headlines */
 export function RevealText({
   text,
   className = "",
@@ -110,10 +110,10 @@ export function RevealText({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={INVIEW}
       variants={{
         hidden: {},
-        visible: { transition: { staggerChildren: 0.06, delayChildren: delay } },
+        visible: { transition: { staggerChildren: 0.04, delayChildren: delay } },
       }}
     >
       {words.map((w, i) => (
@@ -125,7 +125,7 @@ export function RevealText({
               visible: {
                 y: "0%",
                 opacity: 1,
-                transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] },
+                transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
               },
             }}
           >
