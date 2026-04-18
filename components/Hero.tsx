@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { hero } from "@/lib/content";
 import { Button } from "@/components/ui/Button";
 import { CircularStamp, Laurel, ScrollHint, Sprig } from "@/components/ui/Ornaments";
+import { ChapterOutro } from "@/components/ui/Chapter";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -25,19 +26,39 @@ export function Hero() {
         className="pointer-events-none absolute -right-10 top-48 h-72 w-48 text-gold/20"
       />
 
-      {/* Top rail */}
-      <motion.div
-        initial={{ opacity: 0, y: -6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-        className="container-page flex items-center justify-between mb-10 lg:mb-14"
-      >
-        <span className="caption">Paris · 14 rue de Richelieu</span>
-        <span className="script text-2xl text-wine hidden md:inline">
-          · Spring Tasting 2026 ·
-        </span>
-        <span className="caption">Est. 1976 · 50 years</span>
-      </motion.div>
+      {/* Newspaper masthead rail */}
+      <div className="container-page mb-10 lg:mb-14">
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="origin-left h-[2.5px] w-full bg-espresso/30"
+        />
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="flex items-center justify-between gap-4 py-4 text-[10px] uppercase tracking-[0.4em]"
+        >
+          <span className="flex items-center gap-3">
+            <span className="font-display italic text-base normal-case tracking-normal text-wine">
+              Chapter I
+            </span>
+            <span className="hidden sm:inline-block h-3 w-px bg-espresso/20" />
+            <span className="hidden sm:inline">Invitation</span>
+          </span>
+          <span className="script text-2xl text-wine hidden md:inline normal-case tracking-normal">
+            · Spring Tasting 2026 ·
+          </span>
+          <span className="tabular-nums opacity-70">p. 01</span>
+        </motion.div>
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: 0.75, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="origin-right h-px w-full bg-espresso/15"
+        />
+      </div>
 
       <div className="container-page grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
         {/* Left: Typography */}
@@ -206,6 +227,10 @@ export function Hero() {
           <span className="script text-2xl text-espresso">É. Laurent</span>
         </div>
       </motion.div>
+
+      <div className="container-page">
+        <ChapterOutro page="p. 01 — 13" next="Our Story" />
+      </div>
     </section>
   );
 }
