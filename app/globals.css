@@ -5,37 +5,51 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    background-color: #0C0A08;
   }
   body {
-    @apply bg-cream text-ink font-sans antialiased;
+    @apply bg-bg text-ivory font-sans antialiased;
     background-image:
-      radial-gradient(circle at 15% 8%, rgba(122, 30, 30, 0.06), transparent 40%),
-      radial-gradient(circle at 85% 60%, rgba(184, 147, 90, 0.08), transparent 45%);
+      radial-gradient(ellipse at 10% -10%, rgba(201, 169, 106, 0.06), transparent 50%),
+      radial-gradient(ellipse at 100% 100%, rgba(122, 30, 30, 0.08), transparent 55%);
+    background-attachment: fixed;
   }
   ::selection {
-    @apply bg-burgundy text-cream;
+    @apply bg-gold text-bg;
   }
 }
 
 @layer components {
   .container-page {
-    @apply mx-auto max-w-7xl px-5 sm:px-8 lg:px-12;
+    @apply mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16;
+  }
+  .rule {
+    @apply h-px w-full bg-line;
   }
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-burgundy;
+    @apply inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-muted;
   }
   .eyebrow::before {
     content: "";
-    @apply inline-block h-px w-8 bg-burgundy/60;
+    @apply inline-block h-px w-6 bg-gold/70;
+  }
+  .section-index {
+    @apply font-serif text-xs tracking-[0.4em] text-gold uppercase;
   }
   .heading-serif {
-    @apply font-serif text-ink leading-[1.05] tracking-tight;
+    @apply font-serif text-ivory leading-[0.98] tracking-tight;
+  }
+  .heading-display {
+    @apply font-serif text-ivory tracking-tight text-display;
   }
   .script {
-    @apply font-script;
+    @apply font-script text-gold;
   }
-  .card-soft {
-    @apply rounded-3xl bg-white/70 backdrop-blur-sm shadow-soft ring-1 ring-ink/5;
+  .caption {
+    @apply text-[10px] uppercase tracking-[0.35em] text-muted;
+  }
+  .link-underline {
+    @apply relative inline-block after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-gold after:transition-transform hover:after:origin-left hover:after:scale-x-100;
   }
 }
 

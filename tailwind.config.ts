@@ -5,36 +5,42 @@ export default {
   theme: {
     extend: {
       colors: {
-        cream: {
-          DEFAULT: "#F5EFE6",
-          dark: "#EBE2D3",
+        bg: {
+          DEFAULT: "#0C0A08",
+          soft: "#15110D",
+          elevated: "#1C1814",
         },
-        burgundy: {
-          DEFAULT: "#7A1E1E",
-          deep: "#4A1212",
-          soft: "#9B3636",
+        ivory: {
+          DEFAULT: "#F4EBDB",
+          dim: "#D8CFBE",
         },
-        ink: "#1F140E",
-        muted: "#6B5A4E",
-        gold: "#B8935A",
+        muted: "#8A7E6E",
+        line: "rgba(244, 235, 219, 0.1)",
+        gold: {
+          DEFAULT: "#C9A96A",
+          deep: "#A3854A",
+        },
+        wine: "#7A1E1E",
       },
       fontFamily: {
         script: ["var(--font-script)", "cursive"],
         serif: ["var(--font-serif)", "serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
+      fontSize: {
+        display: ["clamp(3.5rem, 10vw, 9rem)", { lineHeight: "0.95", letterSpacing: "-0.03em" }],
+      },
       boxShadow: {
-        soft: "0 10px 40px -12px rgba(31, 20, 14, 0.18)",
-        pill: "0 8px 24px -8px rgba(122, 30, 30, 0.45)",
+        soft: "0 24px 60px -20px rgba(0, 0, 0, 0.8)",
       },
       animation: {
-        "slow-spin": "spin 30s linear infinite",
-        float: "float 6s ease-in-out infinite",
+        marquee: "marquee 45s linear infinite",
+        "marquee-slow": "marquee 80s linear infinite",
       },
       keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-8px)" },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
         },
       },
     },

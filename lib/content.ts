@@ -17,6 +17,17 @@ export const hero = {
   chip: { label: "Apr 2026", detail: "Evening · 8:00 pm" },
 };
 
+export const marquee = [
+  { src: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=1000&q=80", caption: "Plat du jour" },
+  { src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1000&q=80", caption: "La salle" },
+  { src: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1000&q=80", caption: "Le passage" },
+  { src: "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=1000&q=80", caption: "Patisserie" },
+  { src: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1000&q=80", caption: "Table dressée" },
+  { src: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=1000&q=80", caption: "Cave à vins" },
+  { src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1000&q=80", caption: "Amuse-bouche" },
+  { src: "https://images.unsplash.com/photo-1592861956120-e524fc739696?w=1000&q=80", caption: "Intérieur" },
+];
+
 export const about = {
   eyebrow: "Our Story",
   title: "Blending tradition & innovation to create unforgettable dining experiences.",

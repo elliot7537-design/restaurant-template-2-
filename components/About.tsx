@@ -1,58 +1,61 @@
 import Image from "next/image";
-import { Quote } from "lucide-react";
 import { about } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
 
 export function About() {
   return (
-    <section id="about" className="container-page py-24 lg:py-32">
-      <div className="grid lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-16 items-start">
+    <section id="about" className="relative py-28 lg:py-40 border-t border-line">
+      <div className="container-page">
         <Reveal>
-          <span className="eyebrow">{about.eyebrow}</span>
-          <h2 className="heading-serif mt-5 text-4xl sm:text-5xl lg:text-6xl max-w-3xl">
-            {about.title}
-          </h2>
-          <p className="mt-6 text-lg text-muted leading-relaxed max-w-xl">{about.body}</p>
-
-          <blockquote className="mt-10 flex gap-4 border-l-2 border-burgundy pl-6">
-            <Quote className="mt-1 shrink-0 text-burgundy" size={22} />
-            <div>
-              <p className="script text-3xl text-ink leading-tight">{about.quote}</p>
-              <footer className="mt-2 text-sm uppercase tracking-[0.25em] text-muted">
-                — {about.quoteAuthor}
-              </footer>
-            </div>
-          </blockquote>
+          <div className="flex items-start justify-between mb-20">
+            <span className="section-index">Chapter 02 — {about.eyebrow}</span>
+            <span className="caption hidden sm:inline">Paris · 1976 — 2026</span>
+          </div>
         </Reveal>
 
-        <Reveal delay={0.15}>
-          <div className="relative">
-            <div className="relative overflow-hidden rounded-[2rem] ring-1 ring-ink/5 shadow-soft">
-              <Image
-                src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=1200&q=80"
-                alt="Chef Étienne Laurent at the pass"
-                width={1200}
-                height={900}
-                className="h-[460px] w-full object-cover"
-                priority={false}
-              />
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16">
+          <Reveal className="lg:col-span-7">
+            <h2 className="heading-serif text-5xl sm:text-6xl lg:text-7xl max-w-3xl">
+              Blending <em className="text-gold">tradition</em> &amp; innovation to create
+              unforgettable dining experiences.
+            </h2>
+
+            <div className="mt-12 grid sm:grid-cols-2 gap-x-10 gap-y-6 max-w-2xl">
+              <p className="text-ivory/70 leading-relaxed">{about.body}</p>
+              <div className="pl-6 border-l border-line">
+                <p className="script text-4xl leading-tight">{about.quote}</p>
+                <p className="caption mt-3">— {about.quoteAuthor}</p>
+              </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-3 mt-4">
+            <div className="mt-14 flex flex-wrap gap-10">
               {about.stats.map((s) => (
-                <div
-                  key={s.label}
-                  className="card-soft px-4 py-5 text-center"
-                >
-                  <div className="font-serif text-3xl text-burgundy">{s.value}</div>
-                  <div className="mt-1 text-[11px] uppercase tracking-[0.2em] text-muted">
-                    {s.label}
-                  </div>
+                <div key={s.label} className="flex items-baseline gap-3">
+                  <span className="font-serif text-5xl text-gold leading-none">{s.value}</span>
+                  <span className="caption max-w-[8ch] leading-tight">{s.label}</span>
                 </div>
               ))}
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
+
+          <Reveal delay={0.15} className="lg:col-span-5 lg:pt-24">
+            <figure className="relative">
+              <div className="relative overflow-hidden rounded-sm">
+                <Image
+                  src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=1200&q=80"
+                  alt="Chef Étienne Laurent at the pass"
+                  width={1200}
+                  height={1500}
+                  className="h-[560px] w-full object-cover grayscale-[15%]"
+                />
+              </div>
+              <figcaption className="mt-4 flex items-start justify-between gap-4">
+                <span className="caption">Plate №14 — Étienne Laurent, Chef Patron</span>
+                <span className="caption tabular-nums">Fig. 02</span>
+              </figcaption>
+            </figure>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
