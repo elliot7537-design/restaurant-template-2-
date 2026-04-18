@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(122, 30, 30, 0.06), transparent 40%),
+      radial-gradient(circle at 85% 60%, rgba(184, 147, 90, 0.08), transparent 45%);
+  }
+  ::selection {
+    @apply bg-burgundy text-cream;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-burgundy;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply inline-block h-px w-8 bg-burgundy/60;
+  }
+  .heading-serif {
+    @apply font-serif text-ink leading-[1.05] tracking-tight;
+  }
+  .script {
+    @apply font-script;
+  }
+  .card-soft {
+    @apply rounded-3xl bg-white/70 backdrop-blur-sm shadow-soft ring-1 ring-ink/5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
