@@ -81,10 +81,10 @@ export function Reserve() {
                   ].map(({ src, offset }) => (
                     <motion.figure
                       key={src}
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 0, y: 16 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8 }}
+                      viewport={{ once: true, amount: 0.1 }}
+                      transition={{ duration: 0.5 }}
                       className={`relative h-48 overflow-hidden rounded-[3px] ring-1 ring-cream/15 ${offset}`}
                     >
                       <Image src={src} alt="" fill sizes="200px" className="object-cover" />

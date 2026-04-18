@@ -40,12 +40,12 @@ export function Gallery() {
               return (
                 <motion.figure
                   key={g.src}
-                  initial={{ opacity: 0, y: 40 }}
+                  initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
+                  viewport={{ once: true, amount: 0.1 }}
                   transition={{
-                    duration: 0.9,
-                    delay: i * 0.08,
+                    duration: 0.55,
+                    delay: i * 0.04,
                     ease: [0.22, 1, 0.36, 1],
                   }}
                   whileHover={{ y: -6 }}

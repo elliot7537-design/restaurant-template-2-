@@ -12,8 +12,8 @@ export function Divider({ color = "currentColor", className = "" }: ColorProps) 
       className={`block ${className}`}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 1.2 }}
+      viewport={{ once: true, amount: 0.05 }}
+      transition={{ duration: 0.6 }}
       aria-hidden
     >
       <motion.line
@@ -25,14 +25,14 @@ export function Divider({ color = "currentColor", className = "" }: ColorProps) 
         strokeWidth="0.6"
         initial={{ pathLength: 0 }}
         whileInView={{ pathLength: 1 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        viewport={{ once: true, amount: 0.05 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       />
       <motion.g
         initial={{ scale: 0, rotate: -45 }}
         whileInView={{ scale: 1, rotate: 45 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        viewport={{ once: true, amount: 0.05 }}
+        transition={{ duration: 0.45, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
         style={{ transformOrigin: "200px 10px" }}
       >
         <rect x="195" y="5" width="10" height="10" fill="none" stroke={color} strokeWidth="0.8" />
@@ -47,8 +47,8 @@ export function Divider({ color = "currentColor", className = "" }: ColorProps) 
         strokeWidth="0.6"
         initial={{ pathLength: 0 }}
         whileInView={{ pathLength: 1 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        viewport={{ once: true, amount: 0.05 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       />
     </motion.svg>
   );

@@ -12,9 +12,9 @@ import { Sprig } from "./Ornaments";
 export type ChapterVariant = "light" | "dark";
 
 type IntroProps = {
-  chapter: string; // roman numeral "II"
-  page: string; // "p. 14"
-  eyebrow: string; // "Our Story"
+  chapter: string;
+  page: string;
+  eyebrow: string;
   edition?: string;
   title: ReactNode;
   kicker?: ReactNode;
@@ -40,6 +40,10 @@ const palette: Record<ChapterVariant, { text: string; line: string; rule: string
   },
 };
 
+// Fire when the element is even slightly in view so titles are never
+// left behind a mask if the user scrolls quickly.
+const INVIEW = { once: true, amount: 0.05 } as const;
+
 export function ChapterIntro({
   chapter,
   page,
@@ -56,12 +60,12 @@ export function ChapterIntro({
 
   return (
     <header className={`relative ${c.text} ${align === "center" ? "text-center" : "text-left"} ${className}`}>
-      {/* Top thick rule (draws L→R) */}
+      {/* Top thick rule */}
       <motion.div
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        viewport={INVIEW}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
         className={`origin-left h-[2.5px] w-full ${c.rule}`}
       />
 
@@ -69,9 +73,9 @@ export function ChapterIntro({
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.7, delay: 0.35 }}
-        className="flex items-center justify-between gap-4 py-4 text-[10px] uppercase tracking-[0.4em]"
+        viewport={INVIEW}
+        transition={{ duration: 0.35, delay: 0.15 }}
+        className="flex items-center justify-between gap-4 py-3 text-[10px] uppercase tracking-[0.4em]"
       >
         <span className="flex items-center gap-3">
           <span className={`font-display italic text-base normal-case tracking-normal ${c.eyebrow}`}>
@@ -84,39 +88,47 @@ export function ChapterIntro({
         <span className="tabular-nums opacity-70">{page}</span>
       </motion.div>
 
-      {/* Bottom thin rule (draws R→L) */}
+      {/* Bottom thin rule */}
       <motion.div
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        viewport={INVIEW}
+        transition={{ duration: 0.45, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
         className={`origin-right h-px w-full ${c.line}`}
       />
 
       {kicker && (
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 6 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, delay: 0.55 }}
-          className="mt-8 mb-2 caption"
+          viewport={INVIEW}
+          transition={{ duration: 0.35, delay: 0.25 }}
+          className="mt-6 mb-2 caption"
         >
           {kicker}
         </motion.div>
       )}
 
-      {/* Title with paper-pull reveal */}
-      <div className={`relative ${align === "center" ? "mx-auto" : ""} ${kicker ? "mt-2" : "mt-12"}`}>
-        <h2 className="heading-serif text-5xl sm:text-6xl lg:text-[4.75rem] max-w-5xl mx-auto leading-[1.02]">
+      {/* Title with paper-pull reveal. The h2 itself fades in as a
+          safety net so the title is NEVER stuck invisible even if
+          the mask somehow doesn't animate off. */}
+      <div className={`relative overflow-hidden ${kicker ? "mt-4" : "mt-8"}`}>
+        <motion.h2
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={INVIEW}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="heading-serif text-5xl sm:text-6xl lg:text-[4.75rem] max-w-5xl mx-auto leading-[1.02]"
+        >
           {title}
-        </h2>
+        </motion.h2>
         {!reduce && (
           <motion.span
             aria-hidden
             initial={{ x: "0%" }}
-            whileInView={{ x: "-110%" }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 1.3, delay: 0.55, ease: [0.76, 0, 0.24, 1] }}
+            whileInView={{ x: "-105%" }}
+            viewport={INVIEW}
+            transition={{ duration: 0.7, delay: 0.22, ease: [0.76, 0, 0.24, 1] }}
             className={`absolute inset-0 ${c.paper}`}
           />
         )}
@@ -142,19 +154,19 @@ export function ChapterOutro({
   const c = palette[variant];
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.9 }}
-      className={`mt-20 flex flex-col items-center gap-4 ${c.text}/80 ${className}`}
+      viewport={INVIEW}
+      transition={{ duration: 0.5 }}
+      className={`mt-14 flex flex-col items-center gap-3 ${c.text}/80 ${className}`}
     >
       <div className="flex items-center gap-5">
         <motion.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className={`origin-right h-px w-24 ${c.line}`}
+          viewport={INVIEW}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className={`origin-right h-px w-16 sm:w-24 ${c.line}`}
         />
         <Sprig className={`h-4 w-14 ${c.eyebrow}`} />
         <span className={`script text-2xl ${c.eyebrow}`}>turn the page</span>
@@ -162,9 +174,9 @@ export function ChapterOutro({
         <motion.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className={`origin-left h-px w-24 ${c.line}`}
+          viewport={INVIEW}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className={`origin-left h-px w-16 sm:w-24 ${c.line}`}
         />
       </div>
       {(page || next) && (
@@ -203,8 +215,8 @@ export function PageWipe({
       className={className}
       initial={{ opacity: 0, clipPath: from }}
       whileInView={{ opacity: 1, clipPath: "inset(0 0 0 0)" }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 1.1, delay, ease: [0.76, 0, 0.24, 1] }}
+      viewport={INVIEW}
+      transition={{ duration: 0.55, delay, ease: [0.76, 0, 0.24, 1] }}
     >
       {children}
     </motion.div>

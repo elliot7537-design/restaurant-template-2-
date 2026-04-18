@@ -31,14 +31,14 @@ export function Hero() {
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ delay: 0.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="origin-left h-[2.5px] w-full bg-espresso/30"
         />
         <motion.div
-          initial={{ opacity: 0, y: -6 }}
+          initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="flex items-center justify-between gap-4 py-4 text-[10px] uppercase tracking-[0.4em]"
+          transition={{ delay: 0.25, duration: 0.45 }}
+          className="flex items-center justify-between gap-4 py-3 text-[10px] uppercase tracking-[0.4em]"
         >
           <span className="flex items-center gap-3">
             <span className="font-display italic text-base normal-case tracking-normal text-wine">
@@ -55,7 +55,7 @@ export function Hero() {
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ delay: 0.75, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ delay: 0.3, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="origin-right h-px w-full bg-espresso/15"
         />
       </div>
@@ -67,9 +67,9 @@ export function Hero() {
           className="lg:col-span-7 relative z-10"
         >
           <motion.span
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
+            transition={{ delay: 0.15, duration: 0.5 }}
             className="eyebrow mb-8"
           >
             {hero.eyebrow}
@@ -81,7 +81,7 @@ export function Hero() {
                 className="block"
                 initial={{ y: "110%" }}
                 animate={{ y: "0%" }}
-                transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               >
                 Experience the
               </motion.span>
@@ -91,7 +91,7 @@ export function Hero() {
                 className="block italic font-display"
                 initial={{ y: "110%" }}
                 animate={{ y: "0%" }}
-                transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
               >
                 Language{" "}
                 <span
@@ -106,18 +106,18 @@ export function Hero() {
           </h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
+            transition={{ delay: 0.55, duration: 0.5 }}
             className="mt-10 max-w-xl text-lg text-espresso/70 leading-relaxed"
           >
             {hero.subtitle}
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.15, duration: 0.8 }}
+            transition={{ delay: 0.65, duration: 0.5 }}
             className="mt-10 flex flex-wrap items-center gap-5"
           >
             <Button href={hero.ctaPrimary.href} showArrow>
@@ -131,7 +131,7 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.3, duration: 1 }}
+            transition={{ delay: 0.75, duration: 0.55 }}
             className="mt-14 flex items-center gap-8"
           >
             <Sprig className="h-5 w-16 text-gold/70" />
@@ -150,9 +150,9 @@ export function Hero() {
         >
           {/* Primary photo */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
+            initial={{ opacity: 0, scale: 0.94, rotate: -2 }}
             animate={{ opacity: 1, scale: 1, rotate: -2 }}
-            transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.75, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="absolute top-0 right-4 h-[420px] w-[72%] overflow-hidden rounded-[3px] shadow-lift ring-1 ring-espresso/5"
           >
             <Image
@@ -167,9 +167,9 @@ export function Hero() {
 
           {/* Secondary photo (overlap) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, rotate: 4 }}
+            initial={{ opacity: 0, scale: 0.94, rotate: 4 }}
             animate={{ opacity: 1, scale: 1, rotate: 4 }}
-            transition={{ duration: 1.2, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.75, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="absolute bottom-0 left-0 h-[300px] w-[60%] overflow-hidden rounded-[3px] shadow-lift ring-1 ring-espresso/5"
           >
             <Image
@@ -185,9 +185,9 @@ export function Hero() {
           {/* Circular Michelin stamp */}
           <motion.div
             style={{ rotate: badgeRot }}
-            initial={{ opacity: 0, scale: 0.6 }}
+            initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="absolute -top-6 -left-2 lg:-left-10 h-36 w-36 text-wine animate-float-slow"
           >
             <CircularStamp topText="LA TABLE ÉTERNELLE" bottomText="MICHELIN · 2026">
@@ -200,9 +200,9 @@ export function Hero() {
 
           {/* Floating caption badge */}
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
             className="absolute bottom-6 right-6 bg-cream/90 backdrop-blur-sm px-5 py-3 rounded-full shadow-soft ring-1 ring-gold/30 flex items-center gap-3"
           >
             <span className="h-2 w-2 rounded-full bg-wine animate-shimmer" />
@@ -217,7 +217,7 @@ export function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 1 }}
+        transition={{ delay: 0.85, duration: 0.55 }}
         className="container-page mt-16 lg:mt-20 flex items-center justify-between"
       >
         <ScrollHint />

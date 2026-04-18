@@ -42,7 +42,7 @@ export function Header() {
               href={item.href}
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + i * 0.06, duration: 0.6 }}
+              transition={{ delay: 0.15 + i * 0.035, duration: 0.4 }}
               className="link-underline hover:text-wine transition-colors"
             >
               {item.label}
@@ -55,7 +55,7 @@ export function Header() {
             href="#reserve"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.6 }}
+            transition={{ delay: 0.35, duration: 0.4 }}
             className="hidden sm:inline-flex items-center gap-2 rounded-full bg-wine px-5 py-2.5 text-[11px] uppercase tracking-[0.25em] text-cream hover:bg-wine-deep transition-colors shadow-warm"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-gold-bright animate-shimmer" />
