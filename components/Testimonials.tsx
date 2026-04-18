@@ -4,45 +4,43 @@ import { Reveal } from "@/components/ui/Reveal";
 
 export function Testimonials() {
   return (
-    <section className="container-page py-24 lg:py-32">
-      <Reveal>
-        <div className="text-center max-w-3xl mx-auto">
-          <span className="eyebrow mx-auto">{testimonials.eyebrow}</span>
-          <h2 className="heading-serif mt-4 text-4xl sm:text-5xl lg:text-6xl">
-            Where every visit becomes a great{" "}
-            <span className="script text-burgundy text-5xl sm:text-6xl lg:text-7xl">
-              memory
-            </span>
-          </h2>
-        </div>
-      </Reveal>
+    <section className="relative py-28 lg:py-40 border-t border-line">
+      <div className="container-page">
+        <Reveal>
+          <div className="flex items-start justify-between mb-16">
+            <span className="section-index">Chapter 07 — {testimonials.eyebrow}</span>
+            <span className="caption hidden sm:inline">As heard in the dining room</span>
+          </div>
+        </Reveal>
 
-      <div className="mt-14 grid md:grid-cols-3 gap-5">
-        {testimonials.items.map((t, i) => (
-          <Reveal key={t.author} delay={i * 0.1}>
-            <article className="card-soft h-full p-8 flex flex-col">
-              <div className="flex gap-1 text-burgundy">
-                {Array.from({ length: t.rating }).map((_, idx) => (
-                  <Star key={idx} size={14} fill="currentColor" strokeWidth={0} />
-                ))}
-              </div>
-              <p className="mt-5 font-serif text-xl leading-relaxed text-ink">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-              <footer className="mt-auto pt-6 flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-full bg-burgundy text-cream font-serif">
-                  {t.author[0]}
+        <Reveal>
+          <h2 className="heading-serif text-5xl sm:text-6xl lg:text-7xl max-w-4xl">
+            Where every visit becomes a great{" "}
+            <em className="text-gold">memory.</em>
+          </h2>
+        </Reveal>
+
+        <div className="mt-20 grid lg:grid-cols-12 gap-10 lg:gap-8">
+          {testimonials.items.map((t, i) => (
+            <Reveal key={t.author} delay={i * 0.12} className={`lg:col-span-4 ${i === 1 ? "lg:translate-y-16" : ""}`}>
+              <figure className="flex flex-col h-full">
+                <div className="flex gap-1 text-gold">
+                  {Array.from({ length: t.rating }).map((_, idx) => (
+                    <Star key={idx} size={12} fill="currentColor" strokeWidth={0} />
+                  ))}
                 </div>
-                <div>
-                  <div className="text-sm font-medium text-ink">{t.author}</div>
-                  <div className="text-xs uppercase tracking-[0.2em] text-muted">
-                    {t.role}
-                  </div>
-                </div>
-              </footer>
-            </article>
-          </Reveal>
-        ))}
+                <blockquote className="mt-6 font-serif text-2xl lg:text-3xl text-ivory leading-snug">
+                  &ldquo;{t.quote}&rdquo;
+                </blockquote>
+                <figcaption className="mt-auto pt-10 border-t border-line">
+                  <div className="caption tabular-nums">№{String(i + 1).padStart(2, "0")}</div>
+                  <div className="mt-3 font-serif text-lg">{t.author}</div>
+                  <div className="caption mt-1">{t.role}</div>
+                </figcaption>
+              </figure>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

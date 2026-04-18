@@ -1,73 +1,105 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { CalendarDays, Sparkles } from "lucide-react";
-import { hero } from "@/lib/content";
+import { marquee, hero } from "@/lib/content";
 import { Button } from "@/components/ui/Button";
 
-const HeroScene = dynamic(() => import("@/components/HeroScene"), {
-  ssr: false,
-  loading: () => (
-    <div className="h-[420px] sm:h-[520px] lg:h-[620px] w-full rounded-[2rem] bg-gradient-to-br from-[#1a0e07] via-[#2a140a] to-[#3a1a12] ring-1 ring-ink/10 shadow-soft animate-pulse" />
-  ),
-});
-
 export function Hero() {
-  return (
-    <section id="top" className="relative overflow-hidden">
-      <div className="container-page grid lg:grid-cols-[1.05fr_1fr] items-center gap-10 lg:gap-14 py-10 lg:py-16">
-        {/* Copy */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <span className="eyebrow">{hero.eyebrow}</span>
-          <h1 className="heading-serif mt-5 text-5xl sm:text-6xl lg:text-7xl">
-            Experience the{" "}
-            <span className="relative inline-block">
-              <span className="script text-burgundy text-6xl sm:text-7xl lg:text-[5.5rem] leading-[0.8]">
-                Language
-              </span>
-            </span>{" "}
-            of Taste
-          </h1>
-          <p className="mt-6 max-w-xl text-muted text-lg leading-relaxed">{hero.subtitle}</p>
+  const doubled = [...marquee, ...marquee];
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+  return (
+    <section id="top" className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 overflow-hidden">
+      {/* Meta rail above marquee */}
+      <div className="container-page flex items-center justify-between text-[10px] uppercase tracking-[0.4em] text-muted mb-6">
+        <span>Paris · 14 rue de Richelieu</span>
+        <span className="hidden sm:inline">Guide Michelin 2026</span>
+        <span>Chapter 50 · Spring Tasting</span>
+      </div>
+
+      {/* Marquee strip */}
+      <div className="relative">
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-bg to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-bg to-transparent" />
+        <div className="group overflow-hidden">
+          <div className="flex gap-5 animate-marquee group-hover:[animation-play-state:paused] w-max">
+            {doubled.map((item, i) => (
+              <figure
+                key={`${item.src}-${i}`}
+                className="relative shrink-0 h-[260px] sm:h-[320px] lg:h-[380px] aspect-[4/5] overflow-hidden rounded-[20px] ring-1 ring-line shadow-soft"
+              >
+                <Image
+                  src={item.src}
+                  alt={item.caption}
+                  fill
+                  sizes="(min-width: 1024px) 320px, 260px"
+                  className="object-cover grayscale-[15%] contrast-105 transition-all duration-700 hover:grayscale-0 hover:scale-105"
+                  priority={i < 4}
+                />
+                <figcaption className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-ivory/80">
+                  <span>{item.caption}</span>
+                  <span className="tabular-nums text-ivory/50">
+                    {String((i % marquee.length) + 1).padStart(2, "0")}
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Headline block */}
+      <div className="container-page mt-16 sm:mt-20 grid lg:grid-cols-[1.35fr_1fr] gap-12 lg:gap-20 items-end">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <span className="section-index">Chapter 01 — Invitation</span>
+          <h1 className="heading-display mt-5">
+            Experience the
+            <br />
+            <span className="italic font-serif text-ivory/90">Language</span>{" "}
+            <span className="script text-[1em] align-[-0.05em]">of</span>{" "}
+            <span className="italic">Taste.</span>
+          </h1>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col gap-7"
+        >
+          <p className="text-lg text-ivory/70 leading-relaxed max-w-md">{hero.subtitle}</p>
+
+          <div className="rule" />
+
+          <div className="flex flex-wrap items-center gap-4">
             <Button href={hero.ctaPrimary.href} showArrow>
               {hero.ctaPrimary.label}
             </Button>
-            <Button href={hero.ctaSecondary.href} variant="outline">
+            <Button href={hero.ctaSecondary.href} variant="link" showArrow>
               {hero.ctaSecondary.label}
             </Button>
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center gap-6 text-sm text-muted">
-            <div className="flex items-center gap-3 rounded-full bg-white/60 px-4 py-2 ring-1 ring-ink/5 shadow-soft">
-              <CalendarDays size={16} className="text-burgundy" />
-              <span>
-                Next seating · <strong className="text-ink">{hero.chip.detail}</strong>
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Sparkles size={16} className="text-gold" />
-              <span>Signed by Chef Étienne Laurent</span>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* 3D Scene */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-          className="relative"
-        >
-          <HeroScene />
+          <dl className="grid grid-cols-3 gap-6 pt-4">
+            <Stat k="50" label="Years" />
+            <Stat k="★★" label="Michelin 2026" />
+            <Stat k="IV" label="Seatings nightly" />
+          </dl>
         </motion.div>
       </div>
     </section>
+  );
+}
+
+function Stat({ k, label }: { k: string; label: string }) {
+  return (
+    <div>
+      <dt className="font-serif text-3xl text-gold">{k}</dt>
+      <dd className="caption mt-1">{label}</dd>
+    </div>
   );
 }
