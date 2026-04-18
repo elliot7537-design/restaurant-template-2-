@@ -8,7 +8,7 @@ import { ChapterIntro, ChapterOutro, PageWipe } from "@/components/ui/Chapter";
 
 export function Gallery() {
   return (
-    <section id="gallery" className="relative py-28 lg:py-36 bg-cream-warm/60">
+    <section id="gallery" className="relative py-16 lg:py-24 bg-cream-warm/60">
       <div className="container-page">
         <ChapterIntro
           chapter="V"
@@ -26,16 +26,17 @@ export function Gallery() {
           }
         />
 
-        <PageWipe className="mt-20">
-          <div className="grid grid-cols-12 gap-4 lg:gap-6">
+        <PageWipe className="mt-10 lg:mt-12">
+          <div className="grid grid-cols-12 gap-3 lg:gap-4">
             {gallery.map((g, i) => {
+              /* A compact editorial layout — 6 images across 2 rows, no offsets */
               const layouts = [
-                "col-span-12 md:col-span-7 aspect-[16/10]",
-                "col-span-6 md:col-span-5 aspect-[4/5] md:translate-y-12",
-                "col-span-6 md:col-span-4 aspect-square",
-                "col-span-6 md:col-span-5 aspect-[5/6] md:-translate-y-8",
-                "col-span-12 md:col-span-3 aspect-[3/4] md:translate-y-6",
-                "col-span-6 md:col-span-6 aspect-[16/10]",
+                "col-span-12 md:col-span-7 row-span-2 aspect-[16/11]",
+                "col-span-6 md:col-span-5 aspect-[5/4]",
+                "col-span-6 md:col-span-5 aspect-[5/4]",
+                "col-span-6 md:col-span-4 aspect-[4/5]",
+                "col-span-6 md:col-span-4 aspect-[4/5]",
+                "col-span-12 md:col-span-4 aspect-[4/5]",
               ];
               return (
                 <motion.figure
@@ -44,15 +45,15 @@ export function Gallery() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.1 }}
                   transition={{
-                    duration: 0.55,
+                    duration: 0.5,
                     delay: i * 0.04,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  whileHover={{ y: -6 }}
+                  whileHover={{ y: -4 }}
                   className={`group relative overflow-hidden rounded-[3px] ring-1 ring-espresso/5 shadow-soft ${layouts[i % layouts.length]}`}
                 >
                   <div className="absolute inset-2 border border-cream/0 group-hover:border-gold/60 rounded-[2px] pointer-events-none z-10 transition-colors duration-500" />
-                  <Parallax distance={30} className="h-full w-full">
+                  <Parallax distance={20} className="h-full w-full">
                     <Image
                       src={g.src}
                       alt={g.alt}
@@ -62,8 +63,8 @@ export function Gallery() {
                     />
                   </Parallax>
                   <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-espresso/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <figcaption className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-cream translate-y-3 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                    <span className="script text-2xl">{g.alt}</span>
+                  <figcaption className="absolute bottom-3 left-3 right-3 flex items-end justify-between text-cream translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                    <span className="script text-xl">{g.alt}</span>
                     <span className="caption text-cream/70 tabular-nums">
                       N°{String(i + 1).padStart(2, "0")}
                     </span>

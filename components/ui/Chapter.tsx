@@ -2,12 +2,6 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
-import { Sprig } from "./Ornaments";
-
-/* -----------------------------------------------------------
-   Newspaper-style chapter masthead with a paper-pull title
-   reveal. Paired with ChapterOutro at section ends.
--------------------------------------------------------------*/
 
 export type ChapterVariant = "light" | "dark";
 
@@ -40,8 +34,6 @@ const palette: Record<ChapterVariant, { text: string; line: string; rule: string
   },
 };
 
-// Fire when the element is even slightly in view so titles are never
-// left behind a mask if the user scrolls quickly.
 const INVIEW = { once: true, amount: 0.05 } as const;
 
 export function ChapterIntro({
@@ -60,7 +52,6 @@ export function ChapterIntro({
 
   return (
     <header className={`relative ${c.text} ${align === "center" ? "text-center" : "text-left"} ${className}`}>
-      {/* Top thick rule */}
       <motion.div
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
@@ -69,13 +60,12 @@ export function ChapterIntro({
         className={`origin-left h-[2.5px] w-full ${c.rule}`}
       />
 
-      {/* Masthead row */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={INVIEW}
         transition={{ duration: 0.35, delay: 0.15 }}
-        className="flex items-center justify-between gap-4 py-3 text-[10px] uppercase tracking-[0.4em]"
+        className="flex items-center justify-between gap-4 py-2.5 text-[10px] uppercase tracking-[0.4em]"
       >
         <span className="flex items-center gap-3">
           <span className={`font-display italic text-base normal-case tracking-normal ${c.eyebrow}`}>
@@ -88,7 +78,6 @@ export function ChapterIntro({
         <span className="tabular-nums opacity-70">{page}</span>
       </motion.div>
 
-      {/* Bottom thin rule */}
       <motion.div
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
@@ -103,22 +92,19 @@ export function ChapterIntro({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={INVIEW}
           transition={{ duration: 0.35, delay: 0.25 }}
-          className="mt-6 mb-2 caption"
+          className="mt-5 caption"
         >
           {kicker}
         </motion.div>
       )}
 
-      {/* Title with paper-pull reveal. The h2 itself fades in as a
-          safety net so the title is NEVER stuck invisible even if
-          the mask somehow doesn't animate off. */}
-      <div className={`relative overflow-hidden ${kicker ? "mt-4" : "mt-8"}`}>
+      <div className={`relative overflow-hidden ${kicker ? "mt-3" : "mt-5"}`}>
         <motion.h2
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={INVIEW}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="heading-serif text-5xl sm:text-6xl lg:text-[4.75rem] max-w-5xl mx-auto leading-[1.02]"
+          className="heading-serif text-4xl sm:text-5xl lg:text-[4rem] max-w-5xl mx-auto leading-[1.02]"
         >
           {title}
         </motion.h2>
@@ -137,9 +123,7 @@ export function ChapterIntro({
   );
 }
 
-/* -----------------------------------------------------------
-   End-of-chapter marker — "turn the page" flourish
--------------------------------------------------------------*/
+/* Compact one-line chapter outro */
 export function ChapterOutro({
   page,
   next,
@@ -154,46 +138,23 @@ export function ChapterOutro({
   const c = palette[variant];
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={INVIEW}
-      transition={{ duration: 0.5 }}
-      className={`mt-14 flex flex-col items-center gap-3 ${c.text}/80 ${className}`}
+      transition={{ duration: 0.4 }}
+      className={`mt-12 flex items-center justify-center gap-3 caption ${c.text}/60 ${className}`}
     >
-      <div className="flex items-center gap-5">
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={INVIEW}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className={`origin-right h-px w-16 sm:w-24 ${c.line}`}
-        />
-        <Sprig className={`h-4 w-14 ${c.eyebrow}`} />
-        <span className={`script text-2xl ${c.eyebrow}`}>turn the page</span>
-        <Sprig className={`h-4 w-14 ${c.eyebrow}`} />
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={INVIEW}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className={`origin-left h-px w-16 sm:w-24 ${c.line}`}
-        />
-      </div>
-      {(page || next) && (
-        <div className="flex items-center gap-3 caption opacity-75">
-          {page && <span className="tabular-nums">{page}</span>}
-          {page && next && <span className="opacity-40">—</span>}
-          {next && <span>Next · {next}</span>}
-        </div>
+      {page && <span className="tabular-nums">{page}</span>}
+      {page && next && <span className="opacity-40">·</span>}
+      {next && (
+        <span>
+          Turn to <span className={`normal-case tracking-normal script text-xl ${c.eyebrow}`}>{next}</span>
+        </span>
       )}
     </motion.div>
   );
 }
 
-/* -----------------------------------------------------------
-   PageWipe — whole-section entrance with a clip-path sweep.
-   Wrap section content below the ChapterIntro.
--------------------------------------------------------------*/
 export function PageWipe({
   children,
   className,

@@ -25,113 +25,97 @@ export function Reserve() {
   };
 
   return (
-    <section id="reserve" className="relative py-28 lg:py-36">
+    <section id="reserve" className="relative py-16 lg:py-24">
       <div className="container-page">
         <div className="relative overflow-hidden rounded-[6px] bg-gradient-to-br from-wine via-wine to-wine-deep text-cream shadow-lift">
-          <Laurel
-            className="pointer-events-none absolute -top-4 -left-4 h-48 w-32 text-cream/25"
-          />
+          <Laurel className="pointer-events-none absolute -top-4 -left-4 h-40 w-28 text-cream/20" />
           <Laurel
             mirror
-            className="pointer-events-none absolute -bottom-8 -right-4 h-56 w-40 text-cream/20"
+            className="pointer-events-none absolute -bottom-6 -right-4 h-44 w-32 text-cream/15"
           />
 
-          <div className="relative p-8 sm:p-12 lg:p-16">
+          <div className="relative p-7 sm:p-10 lg:p-12">
             <ChapterIntro
               variant="dark"
               align="left"
               chapter="IV"
               page="p. 42"
               eyebrow="Reservations"
-              kicker="Confirm within 2 hours"
+              kicker="Confirmed within 2 hours"
               title={
                 <>
                   Reserve your{" "}
                   <span className="script text-gold-bright text-[1.3em] inline-block -rotate-2">
                     spot
                   </span>{" "}
-                  —
-                  <br />
-                  <em className="italic">the ultimate joy</em> of dining, done right.
+                  — <em className="italic">the ultimate joy</em> of dining, done right.
                 </>
               }
             />
 
-            <PageWipe className="mt-10 grid lg:grid-cols-[1.1fr_1fr] gap-10 items-start">
+            <PageWipe className="mt-8 lg:mt-10 grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-12 items-start">
               <Reveal>
-                <p className="max-w-lg text-cream/75 leading-relaxed text-lg">
-                  A quiet room, candlelight, and a table set just for you. Request a
-                  seating below — our maître d' will confirm within two hours.
+                <p className="max-w-lg text-cream/75 leading-relaxed">
+                  A quiet room, candlelight, and a table set just for you. Request a seating
+                  below — our maître d' will confirm within two hours.
                 </p>
 
-                <div className="mt-12 grid grid-cols-3 gap-3">
-                  {[
-                    {
-                      src: "https://images.unsplash.com/photo-1592861956120-e524fc739696?w=600&q=85",
-                      offset: "",
-                    },
-                    {
-                      src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=85",
-                      offset: "translate-y-10",
-                    },
-                    {
-                      src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=85",
-                      offset: "-translate-y-4",
-                    },
-                  ].map(({ src, offset }) => (
-                    <motion.figure
-                      key={src}
-                      initial={{ opacity: 0, y: 16 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0.1 }}
-                      transition={{ duration: 0.5 }}
-                      className={`relative h-48 overflow-hidden rounded-[3px] ring-1 ring-cream/15 ${offset}`}
-                    >
-                      <Image src={src} alt="" fill sizes="200px" className="object-cover" />
-                    </motion.figure>
-                  ))}
-                </div>
-
-                <div className="mt-12 flex items-center gap-5 text-cream/70">
-                  <span className="script text-3xl text-gold-bright">— à bientôt</span>
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ duration: 0.5 }}
+                  className="mt-6 relative aspect-[16/10] overflow-hidden rounded-[3px] ring-1 ring-cream/10"
+                >
+                  <Image
+                    src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=85"
+                    alt="The dining room at dusk"
+                    fill
+                    sizes="(min-width: 1024px) 40vw, 100vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-wine-deep/80 via-wine-deep/10 to-transparent" />
+                  <figcaption className="absolute bottom-4 left-5 flex items-baseline gap-3">
+                    <span className="script text-3xl text-gold-bright">à bientôt</span>
+                    <span className="caption text-cream/60">— 42 seats · 6:00–10:30pm</span>
+                  </figcaption>
+                </motion.div>
               </Reveal>
 
-              <Reveal delay={0.15}>
-                <div className="relative rounded-[4px] bg-cream/5 ring-1 ring-cream/20 backdrop-blur-sm p-8 lg:p-10">
+              <Reveal delay={0.1}>
+                <div className="relative rounded-[4px] bg-cream/5 ring-1 ring-cream/20 backdrop-blur-sm p-6 lg:p-8">
                   <div className="absolute inset-2 border border-gold-bright/30 rounded-[3px] pointer-events-none" />
                   {submitted ? (
                     <motion.div
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5 }}
-                      className="py-10 text-center"
+                      transition={{ duration: 0.4 }}
+                      className="py-8 text-center"
                     >
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        transition={{ delay: 0.2, type: "spring", bounce: 0.4 }}
-                        className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-gold-bright text-wine-deep"
+                        transition={{ delay: 0.15, type: "spring", bounce: 0.4 }}
+                        className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-gold-bright text-wine-deep"
                       >
-                        <Check size={22} strokeWidth={2.5} />
+                        <Check size={20} strokeWidth={2.5} />
                       </motion.div>
-                      <h3 className="mt-6 font-display text-4xl text-cream">
+                      <h3 className="mt-5 font-display text-3xl text-cream">
                         Merci, {form.name || "friend"}.
                       </h3>
-                      <p className="mt-4 text-sm text-cream/70 max-w-xs mx-auto leading-relaxed">
-                        Your request for {form.date} at {form.time} for {form.guests} has been received.
+                      <p className="mt-3 text-sm text-cream/70 max-w-xs mx-auto leading-relaxed">
+                        Request for {form.date} at {form.time} for {form.guests} received.
                         We'll confirm shortly.
                       </p>
-                      <div className="mt-6 script text-3xl text-gold-bright">à bientôt</div>
                     </motion.div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="grid gap-6 relative">
+                    <form onSubmit={handleSubmit} className="grid gap-4 relative">
                       <div className="flex items-baseline justify-between">
-                        <h3 className="font-display text-3xl text-cream">Request a table</h3>
+                        <h3 className="font-display text-2xl text-cream">Request a table</h3>
                         <span className="caption text-cream/50">№01</span>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-2 gap-3">
                         <Field label="Date">
                           <input
                             type="date"
@@ -197,7 +181,7 @@ export function Reserve() {
                         whileHover={{ scale: 1.01 }}
                         whileTap={{ scale: 0.99 }}
                         type="submit"
-                        className="mt-4 inline-flex items-center justify-between gap-3 bg-gold-bright text-wine-deep px-6 py-4 rounded-full font-medium tracking-wide hover:bg-cream transition-colors"
+                        className="mt-3 inline-flex items-center justify-between gap-3 bg-gold-bright text-wine-deep px-5 py-3.5 rounded-full font-medium tracking-wide hover:bg-cream transition-colors"
                       >
                         <span>Request Table</span>
                         <ArrowRight size={16} />
@@ -224,7 +208,7 @@ export function Reserve() {
           border-bottom: 1px solid rgba(251, 245, 233, 0.2);
           color: #FBF5E9;
           border-radius: 0;
-          padding: 10px 0;
+          padding: 8px 0;
           font-size: 15px;
           font-family: var(--font-display), serif;
           outline: none;
