@@ -5,52 +5,81 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    background-color: #0C0A08;
+    background-color: #FBF5E9;
   }
   body {
-    @apply bg-bg text-ivory font-sans antialiased;
+    @apply bg-cream text-espresso font-sans antialiased;
     background-image:
-      radial-gradient(ellipse at 10% -10%, rgba(201, 169, 106, 0.06), transparent 50%),
-      radial-gradient(ellipse at 100% 100%, rgba(122, 30, 30, 0.08), transparent 55%);
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(184, 133, 58, 0.10), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 100% 20%, rgba(139, 30, 46, 0.07), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 0% 70%, rgba(232, 200, 191, 0.12), transparent 60%);
     background-attachment: fixed;
   }
   ::selection {
-    @apply bg-gold text-bg;
+    @apply bg-wine text-cream;
   }
 }
 
 @layer components {
   .container-page {
-    @apply mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16;
+    @apply mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-16;
   }
   .rule {
     @apply h-px w-full bg-line;
   }
+  .rule-gold {
+    background: linear-gradient(to right, transparent, #B8853A, transparent);
+    @apply h-px w-full;
+  }
   .eyebrow {
-    @apply inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-muted;
+    @apply inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.45em] text-wine font-medium;
   }
   .eyebrow::before {
     content: "";
-    @apply inline-block h-px w-6 bg-gold/70;
+    @apply inline-block h-px w-8 bg-gold;
+  }
+  .eyebrow-dark {
+    @apply inline-flex items-center gap-3 text-[10px] uppercase tracking-[0.45em] text-gold font-medium;
+  }
+  .eyebrow-dark::before {
+    content: "";
+    @apply inline-block h-px w-8 bg-gold/70;
   }
   .section-index {
-    @apply font-serif text-xs tracking-[0.4em] text-gold uppercase;
+    @apply font-serif italic text-lg text-gold;
   }
   .heading-serif {
-    @apply font-serif text-ivory leading-[0.98] tracking-tight;
+    @apply font-display text-espresso leading-[1] tracking-tight;
   }
   .heading-display {
-    @apply font-serif text-ivory tracking-tight text-display;
+    @apply font-display text-espresso tracking-tight text-display;
   }
   .script {
-    @apply font-script text-gold;
+    @apply font-script text-wine;
   }
   .caption {
     @apply text-[10px] uppercase tracking-[0.35em] text-muted;
   }
   .link-underline {
-    @apply relative inline-block after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-gold after:transition-transform hover:after:origin-left hover:after:scale-x-100;
+    @apply relative inline-block after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-gold after:transition-transform after:duration-500 hover:after:origin-left hover:after:scale-x-100;
   }
+  .frame {
+    @apply relative overflow-hidden rounded-[3px];
+  }
+  .frame::after {
+    content: "";
+    @apply pointer-events-none absolute inset-2 ring-1 ring-cream/40 rounded-[2px];
+  }
+}
+
+.noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.35'/></svg>");
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

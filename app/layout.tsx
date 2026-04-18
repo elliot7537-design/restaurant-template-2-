@@ -1,9 +1,19 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter, Italianno } from "next/font/google";
+import { Cormorant_Garamond, Playfair_Display, Inter, Italianno } from "next/font/google";
 import "./globals.css";
+
+const display = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 const serif = Playfair_Display({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
   variable: "--font-serif",
   display: "swap",
 });
@@ -34,7 +44,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable} ${script.variable}`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${serif.variable} ${sans.variable} ${script.variable}`}
+    >
       <body>{children}</body>
     </html>
   );
