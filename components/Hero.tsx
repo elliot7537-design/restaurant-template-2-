@@ -1,105 +1,220 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { marquee, hero } from "@/lib/content";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { hero } from "@/lib/content";
 import { Button } from "@/components/ui/Button";
+import { CircularStamp, Laurel, ScrollHint, Sprig } from "@/components/ui/Ornaments";
 
 export function Hero() {
-  const doubled = [...marquee, ...marquee];
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const imgY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const titleY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const badgeRot = useTransform(scrollYProgress, [0, 1], [0, 30]);
 
   return (
-    <section id="top" className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 overflow-hidden">
-      {/* Meta rail above marquee */}
-      <div className="container-page flex items-center justify-between text-[10px] uppercase tracking-[0.4em] text-muted mb-6">
-        <span>Paris · 14 rue de Richelieu</span>
-        <span className="hidden sm:inline">Guide Michelin 2026</span>
-        <span>Chapter 50 · Spring Tasting</span>
-      </div>
+    <section id="top" ref={ref} className="relative pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden">
+      {/* Background ornaments */}
+      <Laurel
+        className="pointer-events-none absolute -left-10 top-20 h-80 w-56 text-gold/25"
+      />
+      <Laurel
+        mirror
+        className="pointer-events-none absolute -right-10 top-48 h-72 w-48 text-gold/20"
+      />
 
-      {/* Marquee strip */}
-      <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-bg to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-bg to-transparent" />
-        <div className="group overflow-hidden">
-          <div className="flex gap-5 animate-marquee group-hover:[animation-play-state:paused] w-max">
-            {doubled.map((item, i) => (
-              <figure
-                key={`${item.src}-${i}`}
-                className="relative shrink-0 h-[260px] sm:h-[320px] lg:h-[380px] aspect-[4/5] overflow-hidden rounded-[20px] ring-1 ring-line shadow-soft"
+      {/* Top rail */}
+      <motion.div
+        initial={{ opacity: 0, y: -6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+        className="container-page flex items-center justify-between mb-10 lg:mb-14"
+      >
+        <span className="caption">Paris · 14 rue de Richelieu</span>
+        <span className="script text-2xl text-wine hidden md:inline">
+          · Spring Tasting 2026 ·
+        </span>
+        <span className="caption">Est. 1976 · 50 years</span>
+      </motion.div>
+
+      <div className="container-page grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        {/* Left: Typography */}
+        <motion.div
+          style={{ y: titleY }}
+          className="lg:col-span-7 relative z-10"
+        >
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="eyebrow mb-8"
+          >
+            {hero.eyebrow}
+          </motion.span>
+
+          <h1 className="heading-display mt-8 relative">
+            <span className="block overflow-hidden">
+              <motion.span
+                className="block"
+                initial={{ y: "110%" }}
+                animate={{ y: "0%" }}
+                transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               >
-                <Image
-                  src={item.src}
-                  alt={item.caption}
-                  fill
-                  sizes="(min-width: 1024px) 320px, 260px"
-                  className="object-cover grayscale-[15%] contrast-105 transition-all duration-700 hover:grayscale-0 hover:scale-105"
-                  priority={i < 4}
-                />
-                <figcaption className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-ivory/80">
-                  <span>{item.caption}</span>
-                  <span className="tabular-nums text-ivory/50">
-                    {String((i % marquee.length) + 1).padStart(2, "0")}
-                  </span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Headline block */}
-      <div className="container-page mt-16 sm:mt-20 grid lg:grid-cols-[1.35fr_1fr] gap-12 lg:gap-20 items-end">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <span className="section-index">Chapter 01 — Invitation</span>
-          <h1 className="heading-display mt-5">
-            Experience the
-            <br />
-            <span className="italic font-serif text-ivory/90">Language</span>{" "}
-            <span className="script text-[1em] align-[-0.05em]">of</span>{" "}
-            <span className="italic">Taste.</span>
+                Experience the
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden">
+              <motion.span
+                className="block italic font-display"
+                initial={{ y: "110%" }}
+                animate={{ y: "0%" }}
+                transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              >
+                Language{" "}
+                <span
+                  className="script text-wine relative"
+                  style={{ fontSize: "1em", lineHeight: 1 }}
+                >
+                  of
+                </span>{" "}
+                Taste.
+              </motion.span>
+            </span>
           </h1>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-7"
-        >
-          <p className="text-lg text-ivory/70 leading-relaxed max-w-md">{hero.subtitle}</p>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.8 }}
+            className="mt-10 max-w-xl text-lg text-espresso/70 leading-relaxed"
+          >
+            {hero.subtitle}
+          </motion.p>
 
-          <div className="rule" />
-
-          <div className="flex flex-wrap items-center gap-4">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.15, duration: 0.8 }}
+            className="mt-10 flex flex-wrap items-center gap-5"
+          >
             <Button href={hero.ctaPrimary.href} showArrow>
               {hero.ctaPrimary.label}
             </Button>
             <Button href={hero.ctaSecondary.href} variant="link" showArrow>
               {hero.ctaSecondary.label}
             </Button>
-          </div>
+          </motion.div>
 
-          <dl className="grid grid-cols-3 gap-6 pt-4">
-            <Stat k="50" label="Years" />
-            <Stat k="★★" label="Michelin 2026" />
-            <Stat k="IV" label="Seatings nightly" />
-          </dl>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.3, duration: 1 }}
+            className="mt-14 flex items-center gap-8"
+          >
+            <Sprig className="h-5 w-16 text-gold/70" />
+            <div className="flex gap-10">
+              <Stat value="50" label="Years of craft" />
+              <Stat value="★★" label="Michelin 2026" />
+              <Stat value="IV" label="Seatings nightly" />
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Right: Photo composition */}
+        <motion.div
+          style={{ y: imgY }}
+          className="lg:col-span-5 relative h-[540px] lg:h-[640px]"
+        >
+          {/* Primary photo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
+            animate={{ opacity: 1, scale: 1, rotate: -2 }}
+            transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute top-0 right-4 h-[420px] w-[72%] overflow-hidden rounded-[3px] shadow-lift ring-1 ring-espresso/5"
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1200&q=85"
+              alt="Chef at the pass"
+              fill
+              priority
+              sizes="(min-width: 1024px) 40vw, 80vw"
+              className="object-cover"
+            />
+          </motion.div>
+
+          {/* Secondary photo (overlap) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, rotate: 4 }}
+            animate={{ opacity: 1, scale: 1, rotate: 4 }}
+            transition={{ duration: 1.2, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute bottom-0 left-0 h-[300px] w-[60%] overflow-hidden rounded-[3px] shadow-lift ring-1 ring-espresso/5"
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=900&q=85"
+              alt="Plated course"
+              fill
+              priority
+              sizes="(min-width: 1024px) 30vw, 60vw"
+              className="object-cover"
+            />
+          </motion.div>
+
+          {/* Circular Michelin stamp */}
+          <motion.div
+            style={{ rotate: badgeRot }}
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute -top-6 -left-2 lg:-left-10 h-36 w-36 text-wine animate-float-slow"
+          >
+            <CircularStamp topText="LA TABLE ÉTERNELLE" bottomText="MICHELIN · 2026">
+              <div className="text-center leading-none">
+                <div className="font-display text-3xl text-wine">50</div>
+                <div className="caption text-wine mt-1">years</div>
+              </div>
+            </CircularStamp>
+          </motion.div>
+
+          {/* Floating caption badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+            className="absolute bottom-6 right-6 bg-cream/90 backdrop-blur-sm px-5 py-3 rounded-full shadow-soft ring-1 ring-gold/30 flex items-center gap-3"
+          >
+            <span className="h-2 w-2 rounded-full bg-wine animate-shimmer" />
+            <span className="text-[11px] uppercase tracking-[0.25em] text-espresso">
+              {hero.chip.detail}
+            </span>
+          </motion.div>
         </motion.div>
       </div>
+
+      {/* Scroll hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.6, duration: 1 }}
+        className="container-page mt-16 lg:mt-20 flex items-center justify-between"
+      >
+        <ScrollHint />
+        <div className="script text-3xl text-wine hidden md:block">bon appétit</div>
+        <div className="flex items-center gap-3">
+          <span className="caption">Signed</span>
+          <span className="script text-2xl text-espresso">É. Laurent</span>
+        </div>
+      </motion.div>
     </section>
   );
 }
 
-function Stat({ k, label }: { k: string; label: string }) {
+function Stat({ value, label }: { value: string; label: string }) {
   return (
-    <div>
-      <dt className="font-serif text-3xl text-gold">{k}</dt>
-      <dd className="caption mt-1">{label}</dd>
+    <div className="flex flex-col">
+      <div className="font-display text-4xl text-wine leading-none">{value}</div>
+      <div className="caption mt-2">{label}</div>
     </div>
   );
 }

@@ -50,9 +50,16 @@ export type Dish = {
   tag?: string;
 };
 
-export const menu: Record<string, { label: string; items: Dish[] }> = {
+export type MenuTab = { label: string; feature: { title: string; note: string; image: string }; items: Dish[] };
+
+export const menu: Record<string, MenuTab> = {
   entrees: {
     label: "Entrées",
+    feature: {
+      title: "Foie Gras Poêlé",
+      note: "Our seventy-year recipe — seared foie gras with aged port figs.",
+      image: "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=900&q=85",
+    },
     items: [
       {
         name: "Foie Gras Poêlé",
@@ -79,6 +86,11 @@ export const menu: Record<string, { label: string; items: Dish[] }> = {
   },
   plats: {
     label: "Plats",
+    feature: {
+      title: "Canard à l'Orange",
+      note: "Chef's Pick · slow-roasted duck, bitter orange, turnip confit.",
+      image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=900&q=85",
+    },
     items: [
       {
         name: "Canard à l'Orange",
@@ -111,6 +123,11 @@ export const menu: Record<string, { label: string; items: Dish[] }> = {
   },
   desserts: {
     label: "Desserts",
+    feature: {
+      title: "Soufflé au Grand Marnier",
+      note: "Prepared à la minute — fifteen minutes of patience, a lifetime of joy.",
+      image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=900&q=85",
+    },
     items: [
       {
         name: "Soufflé au Grand Marnier",
@@ -137,6 +154,11 @@ export const menu: Record<string, { label: string; items: Dish[] }> = {
   },
   vins: {
     label: "Vins",
+    feature: {
+      title: "Chablis Premier Cru 2020",
+      note: "Mineral, citrus, a whisper of hazelnut — Burgundy's quiet cathedral.",
+      image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=900&q=85",
+    },
     items: [
       {
         name: "Chablis Premier Cru 2020",
